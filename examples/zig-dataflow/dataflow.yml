@@ -1,0 +1,23 @@
+nodes:
+  - id: zig_node
+    build: zig build
+    path: zig-out/bin/node
+    inputs:
+      timer: dora/timer/millis/50
+    outputs:
+      - message
+
+  # - id: runtime-node
+  #   operators:
+  #     - id: zig_operator
+  #       shared-library: zig-out/lib/operator
+  #       inputs:
+  #         message: zig_node/message
+  #       outputs:
+  #         - counter
+
+  - id: zig_sink
+    build: zig build
+    path: zig-out/bin/sink
+    inputs:
+      counter: zig_node/message
